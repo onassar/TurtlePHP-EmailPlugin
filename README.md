@@ -2,7 +2,7 @@ TurtlePHP-EmailerPlugin
 ======================
 
 ``` php
-require_once APP . '/vendors/PHP-Email/Email.class.php';
+require_once APP . '/plugins/TurtlePHP-ConfigPlugin/Config.class.php';
 require_once APP . '/vendors/postmark-php/src/Postmark/Mail.php';
 require_once APP . '/vendors/PHP-Email/PostmarkEmail.class.php';
 require_once APP . '/vendors/mailgun/autoload.php';

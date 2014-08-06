@@ -10,15 +10,39 @@
      * Data
      * 
      */
-    $data = array(
-        'cacheNamespace' => 'mysql',
-        'host' => 'localhost',
-        'port' => 3306,
-        'username' => 'app',
-        'password' => 'apples',
-        'name' => 'mysql',
-        'encoding' => 'utf8',
-        'timezone' => 'ETC\/UTC'
+
+    // Default email to send logging emails to
+    $default = 'onassar+logging@gmail.com';
+
+    // Mailgun API and sender settings
+    $mailgun = array(
+        'apiKey' => '***',
+        'from' => array(
+            'domain' => 'domain.com',
+            'email' => 'email@address.com',
+            'name' => 'name'
+        )
+    );
+
+    // Postmark API and sender settings
+    $postmark = array(
+        'key' => '***',
+        'from' => array(
+            'email' => 'email@address.com',
+            'name' => 'name'
+        )
+    );
+
+    // Whether or not to actually send the email (don't use locally)
+    $send = false;
+
+    // Which service to use when sending mail
+    $sender = 'mailgun';
+
+    // Email addresses, which regarldess of <send> boolean, will receive mail
+    // Can be a regular expression
+    $whitelist = array(
+        'onassar@gmail.com'
     );
 
     /**
@@ -29,5 +53,12 @@
     // Store
     \Plugin\Config::add(
         'TurtlePHP-EmailerPlugin',
-        $data
+        array(
+            'default' => $default,
+            'mailgun' => $mailgun,
+            'postmark' => $postmark,
+            'send' => $send,
+            'sender' => $sender,
+            'whitelist' => $whitelist
+        )
     );
