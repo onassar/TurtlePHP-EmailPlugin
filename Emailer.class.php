@@ -113,8 +113,6 @@
             $sendAsHtml = true,
             $from = false
         ) {
-print_r($recipient);
-exit(0);
             // Resource loading
             if (is_null(self::$_resources['mailgun'])) {
                 self::$_resources['mailgun'] = (new \MailgunEmail(
