@@ -4,12 +4,12 @@
      * sendEmail
      * 
      * @access public
-     * @return string
+     * @return string|false
      */
     function sendEmail()
     {
         $args = func_get_args();
-        call_user_func_array(
+        return call_user_func_array(
             array(
                 '\\Plugin\\Emailer',
                 'send'
