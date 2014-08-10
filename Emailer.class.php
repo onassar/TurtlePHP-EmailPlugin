@@ -284,3 +284,6 @@
     if (is_file($configPath)) {
         Emailer::setConfigPath($configPath);
     }
+
+    // Load global functions
+    require_once 'global.inc.php';
