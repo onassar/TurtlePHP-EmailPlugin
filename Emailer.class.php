@@ -133,6 +133,7 @@
 
             // Failed
             if (is_object($response) && get_class($response) === 'Exception') {
+                error_log('Could not send through mailgun:');
                 error_log($response->getMessage());
                 return false;
             }
@@ -193,6 +194,7 @@
 
             // Failed
             if (is_object($response) && get_class($response) === 'Exception') {
+                error_log('Could not send through postmark:');
                 error_log($response->getMessage());
                 return false;
             }
