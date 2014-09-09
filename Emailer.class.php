@@ -232,8 +232,23 @@
          */
         protected static function _isWhitelistEmail($email)
         {
+            // Standard
             $whitelist = self::$_config['whitelist'];
-            return in_array($email, $whitelist);
+            if (in_array($email, $whitelist)) {
+                return true;
+            }
+
+            // Regex (prevent errors)
+            set_error_handler(function() {});
+            foreach ($whitelist as $possible) {
+                if (@preg_match($possible, $email) === 1) {
+                    return true;
+                }
+            }
+            restore_error_handler();
+
+            // Fails
+            return false;
         }
 
         /**

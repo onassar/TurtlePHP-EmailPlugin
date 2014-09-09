@@ -11,12 +11,13 @@
      * 
      */
 
-    // Default email to send logging emails to
+    // Default email to send logging emails to (when no args are passed)
     $default = 'onassar+logging@gmail.com';
 
     // Mailgun API and sender settings
     $mailgun = array(
         'apiKey' => '***',
+        'publicKey' => '***',
         'from' => array(
             'domain' => 'domain.com',
             'email' => 'email@address.com',
@@ -42,7 +43,8 @@
     // Email addresses, which regarldess of <send> boolean, will receive mail
     // Can be a regular expression
     $whitelist = array(
-        'onassar@gmail.com'
+        '/onassar(\+)?(\+.+)?@gmail\.com/',// onassar@gmail.com, onassar+random@gmail.com, etc.
+        '/oliver(\+)?(\+.+)?@anchor\.to/'// oliver@anchor.to, oliver+random@anchor.to, etc.
     );
 
     /**
