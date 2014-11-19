@@ -102,6 +102,7 @@
          * @param  string $tag (default: 'logging')
          * @param  boolean $sendAsHtml (default: true)
          * @param  boolean|array $from (default: false)
+         * @param  boolean|array $attachments (default: false)
          * @return string|false messageId if sent; false if exception or not sent at
          *         all
          */
@@ -111,7 +112,8 @@
             $body = '(logging)',
             $tag = 'logging',
             $sendAsHtml = true,
-            $from = false
+            $from = false,
+            $attachments = false
         ) {
             // Resource loading
             if (is_null(self::$_resources['mailgun'])) {
@@ -128,7 +130,8 @@
                 $body,
                 $tag,
                 $sendAsHtml,
-                $from
+                $from,
+                $attachments
             );
 
             // Failed
@@ -152,6 +155,7 @@
          * @param  string $tag (default: 'logging')
          * @param  boolean $sendAsHtml (default: true)
          * @param  boolean|array $from (default: false)
+         * @param  boolean|array $attachments (default: false)
          * @return string|false messageId if sent; false if exception or not sent at
          *         all
          */
@@ -161,7 +165,8 @@
             $body = '(logging)',
             $tag = 'logging',
             $sendAsHtml = true,
-            $from = false
+            $from = false,
+            $attachments = false
         ) {
             // Resource loading
             if (defined('POSTMARKAPP_API_KEY') === false) {
@@ -189,7 +194,8 @@
                 $body,
                 $tag,
                 $sendAsHtml,
-                $from
+                $from,
+                $attachments
             );
 
             // Failed
