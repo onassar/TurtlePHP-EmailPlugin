@@ -146,7 +146,7 @@
          * _sendThroughPostmark
          * 
          * @access protected
-         * @param  string $recipient (default: LOGGING)
+         * @param  string|array $recipient (default: LOGGING)
          * @param  string $subject (default: '(logging)')
          * @param  string $body (default: '(logging)')
          * @param  string $tag (default: 'logging')
@@ -228,27 +228,39 @@
          * email is in the plugin's whitelist.
          * 
          * @access protected
+         * @param  string|array $email
          * @return boolean
          */
         protected static function _isWhitelistEmail($email)
         {
-            // Standard
-            $whitelist = self::$_config['whitelist'];
-            if (in_array($email, $whitelist)) {
+            // Incase an array of emails are passed in
+            if (is_array($email)) {
+                foreach ($email as $specific) {
+                    if (self::_isWhitelistEmail($specific) === false) {
+                        return false;
+                    }
+                }
                 return true;
-            }
+            } else {
 
-            // Regex (prevent errors)
-            set_error_handler(function() {});
-            foreach ($whitelist as $possible) {
-                if (@preg_match($possible, $email) === 1) {
+                // Standard
+                $whitelist = self::$_config['whitelist'];
+                if (in_array($email, $whitelist)) {
                     return true;
                 }
-            }
-            restore_error_handler();
 
-            // Fails
-            return false;
+                // Regex (prevent errors)
+                set_error_handler(function() {});
+                foreach ($whitelist as $possible) {
+                    if (@preg_match($possible, $email) === 1) {
+                        return true;
+                    }
+                }
+                restore_error_handler();
+
+                // Fails
+                return false;
+            }
         }
 
         /**
