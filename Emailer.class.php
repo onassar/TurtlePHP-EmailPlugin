@@ -83,13 +83,13 @@
         /**
          * _resources
          *
-         * @var    array
+         * @var    array (of \MailgunEmail and \PostmarkEmail references)
          * @access protected
          * @static
          */
         protected static $_resources = array(
-            'mailgun' => null,
-            'postmark' => null
+            'mailgun' => array(),
+            'postmark' => array()
         );
 
         /**
@@ -103,6 +103,8 @@
          * @param  boolean $sendAsHtml (default: true)
          * @param  boolean|array $from (default: false)
          * @param  boolean|array $attachments (default: false)
+         * @param  boolean|string $account (default: false)
+         * @param  boolean|string $signature (default: false)
          * @return string|false messageId if sent; false if exception or not sent at
          *         all
          */
@@ -113,25 +115,29 @@
             $tag = 'logging',
             $sendAsHtml = true,
             $from = false,
-            $attachments = false
+            $attachments = false,
+            $account = false,
+            $signature = false
         ) {
             // Resource loading
-            if (is_null(self::$_resources['mailgun'])) {
-                self::$_resources['mailgun'] = (new \MailgunEmail(
-                    self::$_config['mailgun']['apiKey'],
-                    self::$_config['mailgun']['from']
+            $account = ($account === false ? 'default' : $account);
+            if (!isset(self::$_resources['mailgun'][$account])) {
+                self::$_resources['mailgun'][$account] = (new \MailgunEmail(
+                    self::$_config['mailgun']['accounts'][$account]['apiKey']
                 ));
             }
 
             // Send
-            $response = self::$_resources['mailgun']->send(
+            $response = self::$_resources['mailgun'][$account]->send(
                 $recipient,
                 $subject,
                 $body,
                 $tag,
                 $sendAsHtml,
                 $from,
-                $attachments
+                $attachments,
+                $account,
+                $signature
             );
 
             // Failed
@@ -156,6 +162,8 @@
          * @param  boolean $sendAsHtml (default: true)
          * @param  boolean|array $from (default: false)
          * @param  boolean|array $attachments (default: false)
+         * @param  boolean|string $account (default: false)
+         * @param  boolean|string $signature (default: false)
          * @return string|false messageId if sent; false if exception or not sent at
          *         all
          */
@@ -166,36 +174,29 @@
             $tag = 'logging',
             $sendAsHtml = true,
             $from = false,
-            $attachments = false
+            $attachments = false,
+            $account = false,
+            $signature = false
         ) {
             // Resource loading
-            if (defined('POSTMARKAPP_API_KEY') === false) {
-                $postmarkConfig = self::$_config['postmark'];
-                define('POSTMARKAPP_API_KEY', $postmarkConfig['key']);
-                define(
-                    'POSTMARKAPP_MAIL_FROM_ADDRESS',
-                    $postmarkConfig['from']['email']
-                );
-                define(
-                    'POSTMARKAPP_MAIL_FROM_NAME',
-                    $postmarkConfig['from']['name']
-                );
-            }
-
-            // Emailing reference
-            if (is_null(self::$_resources['postmark'])) {
-                self::$_resources['postmark'] = (new \PostmarkEmail());
+            $account = ($account === false ? 'default' : $account);
+            if (!isset(self::$_resources['postmark'][$account])) {
+                self::$_resources['postmark'][$account] = (new \PostmarkEmail(
+                    self::$_config['postmark']['accounts'][$account]['key']
+                ));
             }
 
             // Send
-            $response = self::$_resources['postmark']->send(
+            $response = self::$_resources['postmark'][$account]->send(
                 $recipient,
                 $subject,
                 $body,
                 $tag,
                 $sendAsHtml,
                 $from,
-                $attachments
+                $attachments,
+                $account,
+                $signature
             );
 
             // Failed

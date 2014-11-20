@@ -16,21 +16,33 @@
 
     // Mailgun API and sender settings
     $mailgun = array(
-        'apiKey' => '***',
-        'publicKey' => '***',
-        'from' => array(
-            'domain' => 'domain.com',
-            'email' => 'email@address.com',
-            'name' => 'name'
+        'accounts' => array(
+            'default' => array(
+                'apiKey' => '***',
+                'publicKey' => '***',
+                'signatures' => array(
+                    'default' => array(
+                        'domain' => 'domain.com',
+                        'email' => 'email@address.com',
+                        'name' => 'name'
+                    )
+                )
+            )
         )
     );
 
     // Postmark API and sender settings
     $postmark = array(
-        'key' => '***',
-        'from' => array(
-            'email' => 'email@address.com',
-            'name' => 'name'
+        'accounts' => array(
+            'default' => array(
+                'key' => '***',
+                'signatures' => array(
+                    'default' => array(
+                        'email' => 'email@address.com',
+                        'name' => 'name'
+                    )
+                )
+            )
         )
     );
 
