@@ -105,6 +105,7 @@
          * @param  boolean|array $attachments (default: false)
          * @param  boolean|string $account (default: false)
          * @param  boolean|string $signature (default: false)
+         * @param  boolean $track (default: true)
          * @return string|false messageId if sent; false if exception or not sent at
          *         all
          */
@@ -117,7 +118,8 @@
             $from = false,
             $attachments = false,
             $account = false,
-            $signature = false
+            $signature = false,
+            $track = true
         ) {
             // Resource loading
             $account = ($account === false ? 'default' : $account);
@@ -137,7 +139,8 @@
                 $from,
                 $attachments,
                 $account,
-                $signature
+                $signature,
+                $track
             );
 
             // Failed
@@ -164,6 +167,7 @@
          * @param  boolean|array $attachments (default: false)
          * @param  boolean|string $account (default: false)
          * @param  boolean|string $signature (default: false)
+         * @param  boolean $track (default: true)
          * @return string|false messageId if sent; false if exception or not sent at
          *         all
          */
@@ -176,7 +180,8 @@
             $from = false,
             $attachments = false,
             $account = false,
-            $signature = false
+            $signature = false,
+            $track = true
         ) {
             // Resource loading
             $account = ($account === false ? 'default' : $account);
@@ -196,7 +201,8 @@
                 $from,
                 $attachments,
                 $account,
-                $signature
+                $signature,
+                $track
             );
 
             // Failed
