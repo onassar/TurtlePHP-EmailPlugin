@@ -258,6 +258,7 @@
                 set_error_handler(function() {});
                 foreach ($whitelist as $possible) {
                     if (@preg_match($possible, $email) === 1) {
+                        restore_error_handler();
                         return true;
                     }
                 }
