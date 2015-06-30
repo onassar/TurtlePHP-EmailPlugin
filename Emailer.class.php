@@ -63,15 +63,6 @@
         protected static $_configPath = 'config.default.inc.php';
 
         /**
-         * _config
-         *
-         * @var    array
-         * @access protected
-         * @static
-         */
-        protected static $_config;
-
-        /**
          * _initiated
          *
          * @var    boolean
@@ -125,7 +116,7 @@
             $account = ($account === false ? 'default' : $account);
             if (!isset(self::$_resources['mailgun'][$account])) {
                 self::$_resources['mailgun'][$account] = (new \MailgunEmail(
-                    self::$_config['mailgun']['accounts'][$account]['apiKey']
+                    Emailer\getConfig('mailgun', 'accounts', $account, 'apiKey')
                 ));
             }
 
@@ -187,7 +178,7 @@
             $account = ($account === false ? 'default' : $account);
             if (!isset(self::$_resources['postmark'][$account])) {
                 self::$_resources['postmark'][$account] = (new \PostmarkEmail(
-                    self::$_config['postmark']['accounts'][$account]['key']
+                    Emailer\getConfig('postmark', 'accounts', $account, 'key')
                 ));
             }
 
@@ -228,9 +219,10 @@
             if (is_null(self::$_initiated) === false) {
                 self::$_initiated = true;
                 require_once self::$_configPath;
-                $config = \Plugin\Config::retrieve();
-                self::$_config = $config['TurtlePHP-EmailerPlugin'];
-                DEFINE(__NAMESPACE__ . '\\LOGGING', self::$_config['default']);
+                DEFINE(
+                    __NAMESPACE__ . '\\LOGGING',
+                    Emailer\getConfig('default')
+                );
             }
         }
 
@@ -257,7 +249,7 @@
             } else {
 
                 // Standard
-                $whitelist = self::$_config['whitelist'];
+                $whitelist = Emailer\getConfig('whitelist');
                 if (in_array($email, $whitelist)) {
                     return true;
                 }
@@ -287,16 +279,16 @@
         {
             $args = func_get_args();
             if (
-                self::$_config['send'] === true
+                Emailer\getConfig('send') === true
                 || !isset($args[0])// no args sent = logging email
                 || self::_isWhitelistEmail($args[0])
             ) {
-                if (self::$_config['sender'] === 'mailgun') {
+                if (Emailer\getConfig('sender') === 'mailgun') {
                     return call_user_func_array(
                         array('self', '_sendThroughMailgun'),
                         $args
                     );
-                } else if (self::$_config['sender'] === 'postmark') {
+                } else if (Emailer\getConfig('sender') === 'postmark') {
                     return call_user_func_array(
                         array('self', '_sendThroughPostmark'),
                         $args
@@ -327,5 +319,6 @@
         Emailer::setConfigPath($configPath);
     }
 
-    // Load global functions
+    // Load functions
+    require_once 'local.inc.php';
     require_once 'global.inc.php';
