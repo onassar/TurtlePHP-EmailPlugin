@@ -3,8 +3,8 @@
     /**
      * sendEmail
      * 
-     * @access public
-     * @return string|false
+     * @access  public
+     * @return  string|false
      */
     function sendEmail()
     {

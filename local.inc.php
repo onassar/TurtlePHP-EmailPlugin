@@ -9,8 +9,8 @@
     /**
      * getConfig
      * 
-     * @access public
-     * @return mixed
+     * @access  public
+     * @return  mixed
      */
     function getConfig()
     {
