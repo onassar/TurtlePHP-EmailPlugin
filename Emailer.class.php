@@ -115,9 +115,9 @@
             // Resource loading
             $account = ($account === false ? 'default' : $account);
             if (isset(self::$_resources['mailgun'][$account]) === false) {
-                self::$_resources['mailgun'][$account] = (new \MailgunEmail(
+                self::$_resources['mailgun'][$account] = new \MailgunEmail(
                     Emailer\getConfig('mailgun', 'accounts', $account, 'apiKey')
-                ));
+                );
             }
 
             // Send
@@ -180,9 +180,9 @@
             // Resource loading
             $account = ($account === false ? 'default' : $account);
             if (isset(self::$_resources['postmark'][$account]) === false) {
-                self::$_resources['postmark'][$account] = (new \PostmarkEmail(
+                self::$_resources['postmark'][$account] = new \PostmarkEmail(
                     Emailer\getConfig('postmark', 'accounts', $account, 'key')
-                ));
+                );
             }
 
             // Send
