@@ -87,7 +87,7 @@
          * _sendThroughMailgun
          * 
          * @access  protected
-         * @param   string $recipient (default: LOGGING)
+         * @param   string $recipient (default: Emailer\LOGGING)
          * @param   string $subject (default: '(logging)')
          * @param   string $body (default: '(logging)')
          * @param   string $tag (default: 'logging')
@@ -101,7 +101,7 @@
          *          sent at all
          */
         protected static function _sendThroughMailgun(
-            $recipient = LOGGING,
+            $recipient = Emailer\LOGGING,
             $subject = '(logging)',
             $body = '(logging)',
             $tag = 'logging',
@@ -152,7 +152,7 @@
          * _sendThroughPostmark
          * 
          * @access  protected
-         * @param   string|array $recipient (default: LOGGING)
+         * @param   string|array $recipient (default: Emailer\LOGGING)
          * @param   string $subject (default: '(logging)')
          * @param   string $body (default: '(logging)')
          * @param   string $tag (default: 'logging')
@@ -166,7 +166,7 @@
          *          sent at all
          */
         protected static function _sendThroughPostmark(
-            $recipient = LOGGING,
+            $recipient = Emailer\LOGGING,
             $subject = '(logging)',
             $body = '(logging)',
             $tag = 'logging',
@@ -226,7 +226,7 @@
                 self::$_initiated = true;
                 require_once self::$_configPath;
                 DEFINE(
-                    __NAMESPACE__ . '\\LOGGING',
+                    __NAMESPACE__ . '\\Emailer\\LOGGING',
                     Emailer\getConfig('default')
                 );
             }
