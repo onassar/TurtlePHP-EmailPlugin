@@ -295,7 +295,7 @@
                         array('self', '_sendThroughMailgun'),
                         $args
                     );
-                } else if (Emailer\getConfig('sender') === 'postmark') {
+                } elseif (Emailer\getConfig('sender') === 'postmark') {
                     return call_user_func_array(
                         array('self', '_sendThroughPostmark'),
                         $args
