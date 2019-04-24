@@ -56,8 +56,8 @@
         /**
          * _configPath
          *
-         * @var     string
          * @access  protected
+         * @var     string
          * @static
          */
         protected static $_configPath = 'config.default.inc.php';
@@ -65,8 +65,8 @@
         /**
          * _initiated
          *
-         * @var     boolean
          * @access  protected
+         * @var     bool
          * @static
          */
         protected static $_initiated = false;
@@ -74,8 +74,8 @@
         /**
          * _resources
          *
-         * @var     array (of \MailgunEmail and \PostmarkEmail references)
          * @access  protected
+         * @var     array
          * @static
          */
         protected static $_resources = array(
@@ -91,12 +91,12 @@
          * @param   string $subject (default: '(logging)')
          * @param   string $body (default: '(logging)')
          * @param   string $tag (default: 'logging')
-         * @param   boolean $sendAsHtml (default: true)
-         * @param   boolean|array $from (default: false)
-         * @param   boolean|array $attachments (default: false)
-         * @param   boolean|string $account (default: false)
-         * @param   boolean|string $signature (default: false)
-         * @param   boolean $track (default: true)
+         * @param   bool $sendAsHtml (default: true)
+         * @param   bool|array $from (default: false)
+         * @param   bool|array $attachments (default: false)
+         * @param   bool|string $account (default: false)
+         * @param   bool|string $signature (default: false)
+         * @param   bool $track (default: true)
          * @return  string|false messageId if sent; false if exception or not
          *          sent at all
          */
@@ -156,12 +156,12 @@
          * @param   string $subject (default: '(logging)')
          * @param   string $body (default: '(logging)')
          * @param   string $tag (default: 'logging')
-         * @param   boolean $sendAsHtml (default: true)
-         * @param   boolean|array $from (default: false)
-         * @param   boolean|array $attachments (default: false)
-         * @param   boolean|string $account (default: false)
-         * @param   boolean|string $signature (default: false)
-         * @param   boolean $track (default: true)
+         * @param   bool $sendAsHtml (default: true)
+         * @param   bool|array $from (default: false)
+         * @param   bool|array $attachments (default: false)
+         * @param   bool|string $account (default: false)
+         * @param   bool|string $signature (default: false)
+         * @param   bool $track (default: true)
          * @return  string|false messageId if sent; false if exception or not
          *          sent at all
          */
@@ -240,7 +240,7 @@
          * 
          * @access  protected
          * @param   string|array $email
-         * @return  boolean
+         * @return  bool
          */
         protected static function _isWhitelistEmail($email)
         {
